@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Reports</title>
+    <link rel="stylesheet" href="css/reports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Financial Reports</h1>
+        
+        <div class="report-controls">
+            <div class="filter-group">
+                <label for="reportType">Report Type:</label>
+                <select id="reportType">
+                    <option value="profit_loss">Profit & Loss</option>
+                    <option value="cashflow">Cash Flow</option>
+                    <option value="departmental">Departmental Summary</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="timePeriod">Time Period:</label>
+                <select id="timePeriod">
+                    <option value="all">All Time</option>
+                    <option value="this_month">This Month</option>
+                    <option value="last_month">Last Month</option>
+                    <option value="this_quarter">This Quarter</option>
+                    <option value="this_year">This Year</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            
+            <div class="filter-group custom-date-range" id="customDateRange" style="display: none;">
+                <label for="startDate">From:</label>
+                <input type="date" id="startDate">
+                
+                <label for="endDate">To:</label>
+                <input type="date" id="endDate">
+            </div>
+            
+            <div class="filter-group">
+                <label for="departmentFilter">Department:</label>
+                <select id="departmentFilter">
+                    <option value="all">All Departments</option>
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="MARKETING">MARKETING</option>
+                    <option value="FINANCE">FINANCE</option>
+                </select>
+            </div>
+            
+            <button id="generateReport" class="btn-generate">Generate Report</button>
+            <button id="exportReport" class="btn-export" disabled><i class="fas fa-file-export"></i> Export</button>
+        </div>
+        
+        <div class="report-summary">
+            <div class="summary-cards" id="summaryCards">
+                <!-- Summary cards will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="report-results">
+            <div id="reportOutput">
+                <p>Select report criteria and click "Generate Report"</p>
+            </div>
+            
+            <div id="chartContainer" style="height: 400px; display: none;">
+                <canvas id="reportChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/report.js"></script>
+</body>
+</html>

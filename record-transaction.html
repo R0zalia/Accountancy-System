@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Transaction</title>
+    <link rel="stylesheet" href="css/record-transaction.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Record New Transaction</h1>
+        <form id="transactionForm">
+            <div class="form-group">
+                <label for="transactionType">Transaction Type</label>
+                <select id="transactionType" required>
+                    <option value="">Select Type</option>
+                    <option value="Outgoing">Outgoing</option>
+                    <option value="Incoming">Incoming</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" required>
+                    <option value="">Select Department</option>
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="MARKETING">MARKETING</option>
+                    <option value="FINANCE">FINANCE</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="transactionName">Transaction Name</label>
+                <input type="text" id="transactionName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" min="0" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" id="dueDate" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="vendor">Vendor/Supplier</label>
+                <input type="text" id="vendor">
+            </div>
+            
+            <button type="submit" class="btn-submit">Record Transaction</button>
+        </form>
+    </div>
+    
+    <script src="js/record-transaction.js"></script>
+</body>
+</html>

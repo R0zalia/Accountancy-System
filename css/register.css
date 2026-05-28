@@ -1,0 +1,201 @@
+/* Registration Page Styles */
+:root {
+  --primary-color: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary-color: #3f37c9;
+  --success-color: #4cc9f0;
+  --danger-color: #f72585;
+  --light-bg: #f8f9fa;
+  --light-text: #212529;
+  --light-card: #ffffff;
+  --light-border: #dee2e6;
+  --dark-bg: #121212;
+  --dark-text: #f8f9fa;
+  --dark-card: #1e1e1e;
+  --dark-border: #333333;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: var(--light-bg);
+  color: var(--light-text);
+  transition: var(--transition);
+}
+
+body.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-image: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(72, 149, 239, 0.05) 100%);
+}
+
+.dark .auth-page {
+  background-image: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(19, 15, 64, 0.1) 100%);
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--light-card);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.dark .auth-container {
+  background-color: var(--dark-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.auth-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+#registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#registerForm label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--light-text);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.dark #registerForm label {
+  color: var(--dark-text);
+}
+
+#registerForm input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--light-border);
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  transition: var(--transition);
+}
+
+.dark #registerForm input {
+  background-color: var(--dark-card);
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+#registerForm input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+#registerForm button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 10px;
+}
+
+#registerForm button:hover {
+  background-color: var(--primary-dark);
+}
+
+.auth-container p {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.dark .auth-container p {
+  color: #adb5bd;
+}
+
+.auth-container a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}
+
+/* Form Validation Styles */
+#registerForm input:invalid {
+  border-color: #ff6b6b;
+}
+
+#registerForm input:valid {
+  border-color: #51cf66;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 30px 20px;
+  }
+  
+  .auth-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  #registerForm {
+    gap: 15px;
+  }
+  
+  #registerForm input {
+    padding: 12px 14px;
+  }
+  
+  #registerForm button {
+    padding: 12px;
+  }
+}
+
+/* Theme Toggle Button (if you want to add dark mode toggle) */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--light-text);
+}
+
+.dark .theme-toggle {
+  color: var(--dark-text);
+}

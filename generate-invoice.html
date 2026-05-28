@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Invoice</title>
+    <link rel="stylesheet" href="css/generate-invoice.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Invoice</h1>
+        
+        <div id="invoicePreview" class="invoice-preview">
+            <!-- Invoice preview will be loaded here -->
+        </div>
+        
+        <div class="invoice-actions">
+            <button id="btnDownload" class="btn btn-download"><i class="fas fa-download"></i> Download PDF</button>
+            <button id="btnPrint" class="btn btn-print"><i class="fas fa-print"></i> Print Invoice</button>
+            <button id="btnSave" class="btn btn-save"><i class="fas fa-save"></i> Save Invoice</button>
+        </div>
+    </div>
+    
+    <!-- Include html2pdf library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/generate-invoice.js"></script>
+</body>
+</html>

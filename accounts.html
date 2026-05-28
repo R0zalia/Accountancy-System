@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Accounts</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/account-form.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Include Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <main class="main">
+    <div class="page-header">
+      <h1><i class="ri-wallet-3-line"></i> My Accounts</h1>
+      <p class="subtitle">View and manage your banking accounts</p>
+    </div>
+
+    <div class="accounts-container">
+      <div class="accounts-header">
+        <div class="accounts-summary">
+          <div class="summary-card">
+            <i class="ri-money-dollar-circle-line"></i>
+            <div class="summary-info">
+              <h3>Total Balance</h3>
+              <p class="amount">$25,000.00</p>
+            </div>
+          </div>
+          <div class="summary-card">
+            <i class="ri-bank-line"></i>
+            <div class="summary-info">
+              <h3>Savings</h3>
+              <p class="amount">$15,000.00</p>
+            </div>
+          </div>
+          <div class="summary-card">
+            <i class="ri-bank-card-line"></i>
+            <div class="summary-info">
+              <h3>Checking</h3>
+              <p class="amount">$10,000.00</p>
+            </div>
+          </div>
+        </div>
+        <a href="account-form.html" class="btn btn-primary">
+          <i class="ri-add-line"></i> New Account
+        </a>
+      </div>
+
+      <div class="accounts-list">
+        <div class="account-card">
+          <div class="account-info">
+            <div class="account-type">
+              <i class="ri-bank-line"></i>
+              <span>Savings Account</span>
+            </div>
+            <h3>My Savings</h3>
+            <p class="account-number">**** 1234</p>
+          </div>
+          <div class="account-balance">
+            <p class="amount">$15,000.00</p>
+            <span class="status active">Active</span>
+          </div>
+          <div class="account-actions">
+            <button class="btn btn-icon" title="View Details">
+              <i class="ri-eye-line"></i>
+            </button>
+            <button class="btn btn-icon" title="Edit Account">
+              <i class="ri-edit-line"></i>
+            </button>
+            <button class="btn btn-icon" title="Delete Account">
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <div class="account-info">
+            <div class="account-type">
+              <i class="ri-bank-card-line"></i>
+              <span>Checking Account</span>
+            </div>
+            <h3>Main Checking</h3>
+            <p class="account-number">**** 5678</p>
+          </div>
+          <div class="account-balance">
+            <p class="amount">$10,000.00</p>
+            <span class="status active">Active</span>
+          </div>
+          <div class="account-actions">
+            <button class="btn btn-icon" title="View Details">
+              <i class="ri-eye-line"></i>
+            </button>
+            <button class="btn btn-icon" title="Edit Account">
+              <i class="ri-edit-line"></i>
+            </button>
+            <button class="btn btn-icon" title="Delete Account">
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Include Footer -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/accounts.js"></script>
+</body>
+</html>

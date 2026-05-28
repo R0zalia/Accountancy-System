@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack | Financial Dashboard</title>
+  <meta name="description" content="Professional financial management dashboard">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <style>
+    :root {
+      /* Color Scheme */
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --primary-dark: #3a0ca3;
+      --secondary: #7209b7;
+      --success: #4cc9f0;
+      --danger: #f72585;
+      --warning: #f8961e;
+      --info: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+      
+      /* Grayscale */
+      --white: #ffffff;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-400: #ced4da;
+      --gray-500: #adb5bd;
+      --gray-600: #6c757d;
+      --gray-700: #495057;
+      --gray-800: #343a40;
+      --gray-900: #212529;
+      
+      /* Theme */
+      --bg-color: #f5f7fa;
+      --card-bg: var(--white);
+      --text-color: var(--gray-800);
+      --text-muted: var(--gray-600);
+      --border-color: var(--gray-200);
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+      
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      
+      /* Transitions */
+      --transition: all 0.2s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Layout */
+    .app-container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .header {
+      grid-column: 1 / -1;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      z-index: 100;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    
+    .logo-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .notification-btn {
+      position: relative;
+      background: none;
+      border: none;
+      color: var(--gray-600);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.6rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary-light);
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background: var(--white);
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem 0;
+      overflow-y: auto;
+    }
+    
+    .menu-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .menu-title {
+      padding: 0 1.5rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      color: var(--text-color);
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover {
+      background: var(--gray-100);
+      color: var(--primary);
+    }
+    
+    .nav-link.active {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border-right: 3px solid var(--primary);
+    }
+    
+    .nav-link i {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    
+    .breadcrumbs .active {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    
+    .card-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .card-title i {
+      color: var(--primary);
+    }
+    
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Summary Cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .summary-card {
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    
+    .summary-card.income::before {
+      background: var(--success);
+    }
+    
+    .summary-card.expenses::before {
+      background: var(--danger);
+    }
+    
+    .summary-card.profit::before {
+      background: var(--primary);
+    }
+    
+    .summary-card.invoices::before {
+      background: var(--warning);
+    }
+    
+    .summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .summary-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    
+    .summary-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    
+    .summary-card.income .summary-icon {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .summary-card.expenses .summary-icon {
+      background: rgba(247, 37, 133, 0.1);
+      color: var(--danger);
+    }
+    
+    .summary-card.profit .summary-icon {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+    }
+    
+    .summary-card.invoices .summary-icon {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .summary-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .summary-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .trend-up {
+      color: var(--success);
+    }
+    
+    .trend-down {
+      color: var(--danger);
+    }
+    
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+      background: var(--gray-100);
+      font-weight: 600;
+      color: var(--gray-700);
+      white-space: nowrap;
+    }
+    
+    tr:hover {
+      background: var(--gray-100);
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-badge.completed {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .status-badge.pending {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .status-badge.failed {
+      background: rgba(247, 37, 133, 0.1);
+      color: var(--danger);
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(67, 97, 238, 0.1);
+    }
+    
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--gray-600);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-icon:hover {
+      background: var(--gray-200);
+      color: var(--primary);
+    }
+    
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+    }
+    
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius);
+      background: var(--gray-100);
+      transition: var(--transition);
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-color);
+    }
+    
+    .action-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .action-btn:hover .action-icon {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+    
+    .action-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .action-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    /* Select Input */
+    select {
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      background-color: var(--card-bg);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1rem;
+      appearance: none;
+      transition: var(--transition);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        position: fixed;
+        top: 60px;
+        left: -240px;
+        bottom: 0;
+        width: 240px;
+        z-index: 90;
+        transition: var(--transition);
+      }
+      
+      .sidebar.open {
+        left: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="ri-pie-chart-2-line logo-icon"></i>
+        <span>FinTrack</span>
+      </div>
+      
+      <div class="header-actions">
+        <button class="notification-btn">
+          <i class="ri-notification-3-line"></i>
+          <span class="notification-badge">3</span>
+        </button>
+        
+        <div class="user-profile">
+          <img src="https://ui-avatars.com/api/?name=Admin&background=4361ee&color=fff" alt="Admin" class="user-avatar">
+        </div>
+      </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="menu-group">
+        <div class="menu-title">Main</div>
+        <ul>
+          <li>
+            <a href="index.html" class="nav-link active">
+              <i class="ri-dashboard-line"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="transactions.html" class="nav-link">
+              <i class="ri-exchange-line"></i>
+              <span>Transactions</span>
+            </a>
+          </li>
+          <li>
+            <a href="invoices.html" class="nav-link">
+              <i class="ri-file-list-2-line"></i>
+              <span>Invoices</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="menu-group">
+        <div class="menu-title">Financial</div>
+        <ul>
+          <li>
+            <a href="accounts.html" class="nav-link">
+              <i class="ri-wallet-3-line"></i>
+              <span>Accounts</span>
+            </a>
+          </li>
+          <li>
+            <a href="payments.html" class="nav-link">
+              <i class="ri-money-dollar-circle-line"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="reports.html" class="nav-link">
+              <i class="ri-bar-chart-2-line"></i>
+              <span>Reports</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="menu-group">
+        <div class="menu-title">Management</div>
+        <ul>
+          <li>
+            <a href="departments.html" class="nav-link">
+              <i class="ri-organization-chart"></i>
+              <span>Departments</span>
+            </a>
+          </li>
+          <li>
+            <a href="account-form.html" class="nav-link">
+              <i class="ri-file-edit-line"></i>
+              <span>Account Forms</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="menu-group">
+        <div class="menu-title">Settings</div>
+        <ul>
+          <li>
+            <a href="profile.html" class="nav-link">
+              <i class="ri-user-line"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="settings.html" class="nav-link">
+              <i class="ri-settings-3-line"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="login.html" class="nav-link">
+              <i class="ri-logout-box-line"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Dashboard Overview</h1>
+          <div class="breadcrumbs">
+            <span>Home</span>
+            <i class="ri-arrow-right-s-line"></i>
+            <span class="active">Dashboard</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Summary Cards -->
+      <div class="summary-grid">
+        <div class="summary-card income">
+          <div class="summary-header">
+            <div class="summary-title">Total Income</div>
+            <div class="summary-icon">
+              <i class="ri-money-dollar-circle-line"></i>
+            </div>
+          </div>
+          <div class="summary-value">$24,560.00</div>
+          <div class="summary-footer">
+            <i class="ri-arrow-up-line trend-up"></i>
+            <span class="trend-up">12% from last month</span>
+          </div>
+        </div>
+        
+        <div class="summary-card expenses">
+          <div class="summary-header">
+            <div class="summary-title">Total Expenses</div>
+            <div class="summary-icon">
+              <i class="ri-money-dollar-circle-line"></i>
+            </div>
+          </div>
+          <div class="summary-value">$12,340.00</div>
+          <div class="summary-footer">
+            <i class="ri-arrow-down-line trend-down"></i>
+            <span class="trend-down">5% from last month</span>
+          </div>
+        </div>
+        
+        <div class="summary-card profit">
+          <div class="summary-header">
+            <div class="summary-title">Net Profit</div>
+            <div class="summary-icon">
+              <i class="ri-line-chart-line"></i>
+            </div>
+          </div>
+          <div class="summary-value">$12,220.00</div>
+          <div class="summary-footer">
+            <i class="ri-arrow-up-line trend-up"></i>
+            <span class="trend-up">24% from last month</span>
+          </div>
+        </div>
+        
+        <div class="summary-card invoices">
+          <div class="summary-header">
+            <div class="summary-title">Pending Invoices</div>
+            <div class="summary-icon">
+              <i class="ri-file-list-3-line"></i>
+            </div>
+          </div>
+          <div class="summary-value">8</div>
+          <div class="summary-footer">
+            <span>$5,430.00 total</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Recent Transactions -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="ri-exchange-line"></i>
+              Recent Transactions
+            </h3>
+            <div class="card-actions">
+              <select class="time-filter">
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>Last 90 days</option>
+              </select>
+              <button class="btn btn-primary">
+                View All
+                <i class="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6/15/2023</td>
+                  <td>
+                    <div>Website Redesign</div>
+                    <div class="text-muted">Design</div>
+                  </td>
+                  <td>$4,500.00</td>
+                  <td><span class="status-badge completed">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>6/14/2023</td>
+                  <td>
+                    <div>Office Supplies</div>
+                    <div class="text-muted">Supplies</div>
+                  </td>
+                  <td>$320.50</td>
+                  <td><span class="status-badge completed">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>6/12/2023</td>
+                  <td>
+                    <div>Marketing Campaign</div>
+                    <div class="text-muted">Marketing</div>
+                  </td>
+                  <td>$1,800.00</td>
+                  <td><span class="status-badge pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>6/10/2023</td>
+                  <td>
+                    <div>Software Subscription</div>
+                    <div class="text-muted">Technology</div>
+                  </td>
+                  <td>$99.99</td>
+                  <td><span class="status-badge failed">Failed</span></td>
+                </tr>
+                <tr>
+                  <td>6/8/2023</td>
+                  <td>
+                    <div>Consulting Fees</div>
+                    <div class="text-muted">Services</div>
+                  </td>
+                  <td>$2,500.00</td>
+                  <td><span class="status-badge completed">Completed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Right Side Column -->
+        <div>
+          <!-- Pending Invoices -->
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="ri-file-list-2-line"></i>
+                Pending Invoices
+              </h3>
+              <div class="card-actions">
+                <a href="generate-invoice.html" class="btn btn-outline">
+                  <i class="ri-add-line"></i>
+                  Create New
+                </a>
+                <a href="invoices.html" class="btn btn-primary">
+                  View All
+                  <i class="ri-arrow-right-line"></i>
+                </a>
+              </div>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Invoice #</th>
+                    <th>Client</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>INV-2023-001</td>
+                    <td>Acme Corp</td>
+                    <td>$5,200.00</td>
+                    <td>6/20/2023</td>
+                    <td>
+                      <button class="btn-icon" title="Send Reminder">
+                        <i class="ri-mail-send-line"></i>
+                      </button>
+                      <button class="btn-icon" title="View Invoice">
+                        <i class="ri-eye-line"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-2023-002</td>
+                    <td>Globex Inc</td>
+                    <td>$3,200.00</td>
+                    <td>6/18/2023</td>
+                    <td>
+                      <button class="btn-icon">
+                        <i class="ri-mail-send-line"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="ri-eye-line"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-2023-003</td>
+                    <td>Wayne Enterprises</td>
+                    <td>$7,850.00</td>
+                    <td>6/25/2023</td>
+                    <td>
+                      <button class="btn-icon">
+                        <i class="ri-mail-send-line"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="ri-eye-line"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Quick Actions -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="ri-flashlight-line"></i>
+                Quick Actions
+              </h3>
+            </div>
+            <div class="quick-actions">
+              <a href="record-transaction.html" class="action-btn">
+                <div class="action-icon">
+                  <i class="ri-add-line"></i>
+                </div>
+                <div class="action-label">New Transaction</div>
+              </a>
+              <a href="generate-invoice.html" class="action-btn">
+                <div class="action-icon">
+                  <i class="ri-file-add-line"></i>
+                </div>
+                <div class="action-label">Create Invoice</div>
+              </a>
+              <a href="record-payment.html" class="action-btn">
+                <div class="action-icon">
+                  <i class="ri-money-dollar-box-line"></i>
+                </div>
+                <div class="action-label">Record Payment</div>
+              </a>
+              <a href="reports.html" class="action-btn">
+                <div class="action-icon">
+                  <i class="ri-bar-chart-2-line"></i>
+                </div>
+                <div class="action-label">Generate Report</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Initialize sidebar toggle for mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarToggle = document.createElement('button');
+      sidebarToggle.className = 'sidebar-toggle';
+      sidebarToggle.innerHTML = '<i class="ri-menu-line"></i>';
+      sidebarToggle.style.display = 'none';
+      
+      const header = document.querySelector('.header');
+      header.insertBefore(sidebarToggle, header.firstChild);
+      
+      const sidebar = document.querySelector('.sidebar');
+      
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+      
+      // Show/hide toggle based on screen size
+      function handleResize() {
+        if (window.innerWidth <= 1024) {
+          sidebarToggle.style.display = 'flex';
+          sidebar.classList.remove('open');
+        } else {
+          sidebarToggle.style.display = 'none';
+          sidebar.classList.add('open');
+        }
+      }
+      
+      window.addEventListener('resize', handleResize);
+      handleResize();
+      
+      // Initialize chart
+      const ctx = document.createElement('canvas');
+      ctx.style.width = '100%';
+      ctx.style.height = '300px';
+      
+      const cashflowCard = document.createElement('div');
+      cashflowCard.className = 'card';
+      cashflowCard.innerHTML = `
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="ri-pie-chart-line"></i>
+            Cash Flow
+          </h3>
+          <div class="card-actions">
+            <select class="time-filter">
+              <option>Monthly</option>
+              <option>Quarterly</option>
+              <option>Yearly</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-container"></div>
+      `;
+      
+      cashflowCard.querySelector('.chart-container').appendChild(ctx);
+      document.querySelector('.dashboard-grid > div:first-child').appendChild(cashflowCard);
+      
+      const cashflowChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+          datasets: [
+            {
+              label: 'Income',
+              data: [12000, 19000, 15000, 18000, 22000, 19500, 24000],
+              borderColor: '#4cc9f0',
+              backgroundColor: 'rgba(76, 201, 240, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Expenses',
+              data: [8000, 12000, 10000, 11000, 15000, 13000, 16000],
+              borderColor: '#f72585',
+              backgroundColor: 'rgba(247, 37, 133, 0.1)',
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '$' + value.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
